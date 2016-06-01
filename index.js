@@ -1,8 +1,15 @@
 'use strict'
 
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
+const privateKey  = fs.readFileSync('hacksparrow-key.pem', 'utf8');
+const certificate = fs.readFileSync('hacksparrow-cert.pem', 'utf8');
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
+
+const credentials = {key: privateKey, cert: certificate};
 const app = express()
 
 // Import a module
@@ -166,7 +173,14 @@ app.get('/webhook/', function (req, res) {
   res.send('Error, wrong token')
 })
 
-// Spin up the server
-app.listen(app.get('port'), function() {
-  console.log('running on port', app.get('port'))
-})
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(8080);
+httpsServer.listen(8443);
+
+
+// // Spin up the server
+// app.listen(app.get('port'), function() {
+//   console.log('running on port', app.get('port'))
+// })
