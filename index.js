@@ -173,9 +173,7 @@ var httpServer = http.createServer(app);
 var httpsServer = https.createServer({
   key: fs.readFileSync('./ssl/server.key'),
   cert: fs.readFileSync('./ssl/server.crt'),
-  ca: fs.readFileSync('./ssl/ca.crt'),
-  requestCert: true,
-  rejectUnauthorized: false
+  ca: fs.readFileSync('./ssl/ca.crt')
 }, app);
 
 httpServer.listen(8080);
