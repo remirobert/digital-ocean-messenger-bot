@@ -3,13 +3,9 @@
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-const privateKey  = fs.readFileSync('hacksparrow-key.pem', 'utf8');
-const certificate = fs.readFileSync('hacksparrow-cert.pem', 'utf8');
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
-
-const credentials = {key: privateKey, cert: certificate};
 const app = express()
 
 // Import a module
@@ -174,7 +170,13 @@ app.get('/webhook/', function (req, res) {
 })
 
 var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
+var httpsServer = https.createServer({
+  key: fs.readFileSync('./ssl/server.key'),
+  cert: fs.readFileSync('./ssl/server.crt'),
+  ca: fs.readFileSync('./ssl/ca.crt'),
+  requestCert: true,
+  rejectUnauthorized: false
+}, app);
 
 httpServer.listen(8080);
 httpsServer.listen(8443);
