@@ -1,0 +1,19 @@
+{
+  "name": "githubbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "= <remirobert33530@gmail.com> (remirobert.github.io)",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "digital-ocean-api": "^0.2.0",
+    "express": "^4.13.4",
+    "github": "^1.1.0",
+    "mongoose": "^4.4.19",
+    "request": "^2.72.0"
+  }
+}
