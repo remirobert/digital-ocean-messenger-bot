@@ -2,25 +2,19 @@
 
 const fs = require('fs');
 const http = require('http');
-const https = require('https');
-const express = require('express')
-const bodyParser = require('body-parser')
-const request = require('request')
-const app = express()
-
-// Import a module
-var DigitalOceanApi = require('digital-ocean-api');
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const DigitalOceanApi = require('digital-ocean-api');
+const mongoose = require('mongoose');
+const config = require('config.json')('./auth.json');
+mongoose.connect('mongodb://localhost/digital-ocean-bot');
 
 app.use('/static', express.static('ressources'));
 
-var api = new DigitalOceanApi({
-  token: 'ebd10ba1ea05d984d70d57c9b4e2d685a7f25cbd3926fa9300ba4e6817e3bd78'
-});
-
-api.getDroplet('9319125', function(err, droplet) {
-  console.log("detail droplet : ");
-  console.log(droplet);
-  console.log(err);
+const Client = mongoose.model('Client', {
+  clientId: { type: String, required: true },
+  token: { type: String, required: true }
 });
 
 const getCardsDroplets = function(completion) {
@@ -66,61 +60,67 @@ const getCardsDroplets = function(completion) {
   });
 }
 
-app.set('port', (process.env.PORT || 5000))
+app.set('port', (process.env.PORT || 5000));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
-// Process application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: false}))
-
-// Process application/json
-app.use(bodyParser.json())
-
-// Index route
 app.get('/', function (req, res) {
   res.send('Hello world, I am a chat bot')
-})
-
-// for Facebook verification
+});
 
 app.post('/webhook/', function (req, res) {
   let messaging_events = req.body.entry[0].messaging
   for (let i = 0; i < messaging_events.length; i++) {
     let event = req.body.entry[0].messaging[i]
+    console.log("received new event");
+    console.log(event);
+
     let sender = event.sender.id
-    if (event.message && event.message.text) {
-      let text = event.message.text
-      if (text === 'Generic') {
-        sendGenericMessage(sender)
-        continue
+    Client.findOne({clientId: sender}, function(err, client) {
+      if (err) {
+        return;
       }
+      if (!client) {
+        sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
+      }
+      else {
 
-      getCardsDroplets(function(cards) {
-        sendGenericMessage(sender, cards);
-      });
+      }
+    });
 
-      // sendGenericMessage(sender);
-      //sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-    }
-    if (event.postback) {
-      console.log("event post back : ");
-      console.log(event.postback);
-      console.log("EVENT DEBUG");
-      console.log(event);
-      let text = JSON.stringify(event.postback)
-
-      sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
-      continue
-    }
+    // if (event.message && event.message.text) {
+    //   let text = event.message.text
+    //   if (text === 'Generic') {
+    //     sendGenericMessage(sender)
+    //     continue
+    //   }
+    //
+    //   getCardsDroplets(function(cards) {
+    //     sendGenericMessage(sender, cards);
+    //   });
+    //
+    //   // sendGenericMessage(sender);
+    //   //sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+    // }
+    // if (event.postback) {
+    //   console.log("event post back : ");
+    //   console.log(event.postback);
+    //   console.log("EVENT DEBUG");
+    //   console.log(event);
+    //   let text = JSON.stringify(event.postback)
+    //
+    //   sendTextMessage(sender, "Postback received: "+text.substring(0, 200), config.token);
+    //   continue
+    // }
   }
   res.sendStatus(200)
-})
-
-const token = "EAAN8kzgEXZA4BAAwvKQCZBGz4RBJXj0TJWWXcZAYn5FoRRJZCATyVV8xwr7UAXNOHOJZCZADoQabWPO2qFAqdzbcZAblwN9mGx1OglgiGfFZCigcGaLCQjAyES0VVjWUEibudLZCfILZCEjLOd811Jld5uBjA66gIIUuWYU02Kn5sktQZDZD";
+});
 
 function sendTextMessage(sender, text) {
   let messageData = { text:text }
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
+    qs: {access_token:config.token},
     method: 'POST',
     json: {
       recipient: {id:sender},
@@ -147,7 +147,7 @@ function sendGenericMessage(sender, cards) {
   }
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
+    qs: {access_token:config.token},
     method: 'POST',
     json: {
       recipient: {id:sender},
@@ -170,15 +170,8 @@ app.get('/webhook/', function (req, res) {
 })
 
 var httpServer = http.createServer(app);
-var httpsServer = https.createServer({
-  key: fs.readFileSync('./ssl/server.key'),
-  cert: fs.readFileSync('./ssl/server.crt'),
-  ca: fs.readFileSync('./ssl/ca.crt')
-}, app);
 
 httpServer.listen(8080);
-httpsServer.listen(8443);
-
 
 // // Spin up the server
 // app.listen(app.get('port'), function() {
