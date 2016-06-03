@@ -65,7 +65,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-  res.send('Hello world, I am a chat bot')
+  console.log("get response route");
+  res.send('Hello world, I am a chat bot');
 });
 
 app.post('/webhook/', function (req, res) {
@@ -78,13 +79,14 @@ app.post('/webhook/', function (req, res) {
     let sender = event.sender.id
     Client.findOne({clientId: sender}, function(err, client) {
       if (err) {
+        sendTextMessage(sender, "Welcome on digital ocean bot for Messenger.Error. 💦");
         return;
       }
       if (!client) {
         sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
       }
       else {
-
+        sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
       }
     });
 
