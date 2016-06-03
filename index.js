@@ -81,13 +81,16 @@ app.post('/webhook/', function (req, res) {
     Client.findOne({clientId: sender}, function(err, client) {
       if (err) {
         sendTextMessage(sender, "Welcome on digital ocean bot for Messenger.Error. 💦");
+        res.sendStatus(400);
         return;
       }
       if (!client) {
         sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
+        res.sendStatus(200);
       }
       else {
         sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
+        res.sendStatus(200);
       }
     });
 
@@ -116,7 +119,7 @@ app.post('/webhook/', function (req, res) {
     //   continue
     // }
   }
-  res.sendStatus(200)
+  // res.sendStatus(200)
 });
 
 function sendTextMessage(sender, text) {
