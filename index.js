@@ -117,7 +117,7 @@ app.post('/webhook/', function (req, res) {
               }
             }
             else {
-              console.log("event not a message");r
+              console.log("event not a message");
             }
             i++;
           }
