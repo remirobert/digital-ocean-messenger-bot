@@ -3,6 +3,7 @@
 const fs = require('fs');
 const http = require('http');
 const express = require('express');
+const request = require('require');
 const bodyParser = require('body-parser');
 const app = express();
 const DigitalOceanApi = require('digital-ocean-api');
