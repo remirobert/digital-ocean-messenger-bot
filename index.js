@@ -120,7 +120,7 @@ function sendTextMessage(sender, text) {
   let messageData = { text:text }
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:config.token},
+    qs: {access_token:config.facebook_token},
     method: 'POST',
     json: {
       recipient: {id:sender},
@@ -147,7 +147,7 @@ function sendGenericMessage(sender, cards) {
   }
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:config.token},
+    qs: {access_token:config.facebook_token},
     method: 'POST',
     json: {
       recipient: {id:sender},
@@ -163,7 +163,7 @@ function sendGenericMessage(sender, cards) {
 }
 
 app.get('/webhook/', function (req, res) {
-  if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
+  if (req.query['hub.verify_token'] === config.verify_token) {
     res.send(req.query['hub.challenge'])
   }
   res.send('Error, wrong token')
