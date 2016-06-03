@@ -86,7 +86,6 @@ app.post('/webhook/', function (req, res) {
       console.log(client);
       if (err) {
         sendTextMessage(sender, "Welcome on digital ocean bot for Messenger.Error. 💦");
-        continue;
       }
       else {
         if (!client) {
