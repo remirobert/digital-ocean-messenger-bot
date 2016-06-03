@@ -75,6 +75,18 @@ app.post('/webhook/', function (req, res) {
   console.log("messages events");
   console.log(messaging_events);
 
+  for (let i = 0; i < messaging_events.length; i++) {
+    let event = req.body.entry[0].messaging[i];
+
+    console.log("check current event");
+    if (event.message && event.message.text) {
+      console.log("event is message");
+    }
+    else {
+      console.log("event is not message");
+    }
+  }
+  console.log("debug events over");
   var i = 0;
   const length = messaging_events.length;
   const fn = function() {
