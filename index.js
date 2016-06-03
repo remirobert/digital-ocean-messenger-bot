@@ -71,6 +71,11 @@ app.get('/', function (req, res) {
 });
 
 app.post('/webhook/', function (req, res) {
+
+  console.log("\n");
+  console.log(req.body);
+  console.log("\n");
+
   let messaging_events = req.body.entry[0].messaging;
   console.log("messages events");
   console.log(messaging_events);
