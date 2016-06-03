@@ -102,6 +102,9 @@ app.post('/webhook/', function (req, res) {
             sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
           }
           else {
+            console.log("event debug");
+            console.log(event.message);
+            console.log(event.message.text);
             if (event.message && event.message.text) {
               let text = event.message.text;
               console.log("get text event");
@@ -114,7 +117,7 @@ app.post('/webhook/', function (req, res) {
               }
             }
             else {
-              console.log("event not a message");
+              console.log("event not a message");r
             }
             i++;
           }
