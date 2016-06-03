@@ -113,6 +113,9 @@ app.post('/webhook/', function (req, res) {
                 console.log("not generic text");
               }
             }
+            else {
+              console.log("event not a message");
+            }
             i++;
           }
         }
