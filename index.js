@@ -70,7 +70,11 @@ app.get('/', function (req, res) {
   res.send('Hello world, I am a chat bot');
 });
 
-const processMessages = function(messaging_events, req, res) {
+app.post('/webhook/', function (req, res) {
+  let messaging_events = req.body.entry[0].messaging;
+  console.log("messages events");
+  console.log(messaging_events);
+
   var i = 0;
   const length = messaging_events.length;
   const fn = function() {
@@ -101,14 +105,6 @@ const processMessages = function(messaging_events, req, res) {
     }
   };
   fn();
-}
-
-app.post('/webhook/', function (req, res) {
-  let messaging_events = req.body.entry[0].messaging;
-  console.log("messages events");
-  console.log(messaging_events);
-
-  processMessages(messaging_events, req, res);
 
   // for (let i = 0; i < messaging_events.length; i++) {
   //   let event = req.body.entry[0].messaging[i]
