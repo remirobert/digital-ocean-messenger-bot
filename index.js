@@ -79,6 +79,8 @@ app.post('/webhook/', function (req, res) {
 
     let sender = event.sender.id
     Client.findOne({clientId: sender}, function(err, client) {
+      console.log("find client : ");
+      console.log(client);
       if (err) {
         sendTextMessage(sender, "Welcome on digital ocean bot for Messenger.Error. 💦");
         res.sendStatus(400);
