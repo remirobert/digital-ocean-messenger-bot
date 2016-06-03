@@ -105,8 +105,6 @@ app.post('/webhook/', function (req, res) {
           }
           else {
             console.log("event debug");
-            console.log(event.message);
-            console.log(event.message.text);
             if (event.message && event.message.text) {
               let text = event.message.text;
               console.log("get text event");
