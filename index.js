@@ -71,7 +71,10 @@ app.get('/', function (req, res) {
 });
 
 app.post('/webhook/', function (req, res) {
-  let messaging_events = req.body.entry[0].messaging
+  let messaging_events = req.body.entry[0].messaging;
+  console.log("messages events");
+  console.log(messaging_events);
+
   for (let i = 0; i < messaging_events.length; i++) {
     let event = req.body.entry[0].messaging[i]
     console.log("received new event");
@@ -83,15 +86,17 @@ app.post('/webhook/', function (req, res) {
       console.log(client);
       if (err) {
         sendTextMessage(sender, "Welcome on digital ocean bot for Messenger.Error. 💦");
-        res.sendStatus(400);
-        return;
-      }
-      if (!client) {
-        sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
-        res.sendStatus(200);
+        continue;
       }
       else {
-        sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
+        if (!client) {
+          sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
+        }
+        else {
+          sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
+        }
+      }
+      if (i == messaging_events.length - 1) {
         res.sendStatus(200);
       }
     });
@@ -178,10 +183,4 @@ app.get('/webhook/', function (req, res) {
 })
 
 var httpServer = http.createServer(app);
-
 httpServer.listen(8080);
-
-// // Spin up the server
-// app.listen(app.get('port'), function() {
-//   console.log('running on port', app.get('port'))
-// })
