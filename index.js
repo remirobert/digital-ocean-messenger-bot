@@ -70,7 +70,7 @@ app.get('/', function (req, res) {
   res.send('Hello world, I am a chat bot');
 });
 
-const processMessages = function(messaging_events, res) {
+const processMessages = function(messaging_events, req, res) {
   var i = 0;
   const length = messaging_events.length;
   const fn = function() {
@@ -108,7 +108,7 @@ app.post('/webhook/', function (req, res) {
   console.log("messages events");
   console.log(messaging_events);
 
-  processMessages(messaging_events, res);
+  processMessages(messaging_events, req, res);
 
   // for (let i = 0; i < messaging_events.length; i++) {
   //   let event = req.body.entry[0].messaging[i]
