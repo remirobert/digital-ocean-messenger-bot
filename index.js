@@ -83,6 +83,8 @@ app.post('/webhook/', function (req, res) {
       let event = req.body.entry[0].messaging[i]
       let sender = event.sender.id
 
+      console.log("current event");
+      console.log(event);
       Client.findOne({clientId: sender}, function(err, client) {
         console.log("find client : ");
         console.log(client);
