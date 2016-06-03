@@ -107,7 +107,6 @@ app.post('/webhook/', function (req, res) {
               let text = event.message.text
               if (text === 'Generic') {
                 sendTextMessage(sender, "Received API KEY : " + text + " 💦");
-                continue
               }
             }
             i++;
