@@ -80,7 +80,12 @@ const handleRequest = function(sender, message) {
   Client.findOne({clientId: sender}, function(err, client) {
     if (err) return;
     if (!client) {
-      sendTextMessage(sender, "Welcome on board");
+      new client = Client({
+        clientId: sender
+      });
+      client.save(function(err) {
+        sendTextMessage(sender, "Welcome on board");
+      });
     }
     else {
       const params = message.split(' ');
