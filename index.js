@@ -80,7 +80,7 @@ const handleRequest = function(sender, message) {
   Client.findOne({clientId: sender}, function(err, client) {
     if (err) return;
     if (!client) {
-      new client = Client({
+      const client = new Client({
         clientId: sender
       });
       client.save(function(err) {
