@@ -163,15 +163,15 @@ const handlePostback = function(sender, postback) {
         console.log("droplet : ");
         console.log(droplet);
 
-        const message = "name: '" + droplet.name + "'\n\
-        memory: " + droplet.memory + "\n\
-        vcpus: " + droplet.vcpus + "\n\
-        disk: " + droplet.disk + "\n\
-        locked: " + droplet.locked + "\n\
-        status: '" + droplet.status + "'\n\
-        image: " + (droplet.image) ? droplet.image.distribution : "null" + " " + (droplet.image) ? droplet.image.name : "null" + " \n\
-        kernel: " + (droplet.kernet) ? droplet.kernel.name : "null" + "\n\
-        region: " + droplet.region.name + "";
+        const imageName = (droplet.image) ? droplet.image.name : "null";
+        const imageDistribution = (droplet.image) ? droplet.image.distribution : "null";
+        const kernel = (droplet.kernet) ? droplet.kernel.name : "null";
+
+        const message = "name: " + droplet.name + "\n";
+        message += "memory: " + droplet.memory + "\n";
+        message += "vcpus: " + droplet.vcpu + "\n";
+
+        // const message = "name: " + droplet.name + "\nmemory: " + droplet.memory + "\nvcpus: " + droplet.vcpus + "\ndisk: " + droplet.disk + "\nlocked: " + droplet.locked + "\nstatus: " + droplet.status + "\nimage: " + imageDistribution + " " + imageName + "\nkernel: " + kernel + "\nregion: " + droplet.region.name;
         sendTextMessage(sender, message);
       });
     }
