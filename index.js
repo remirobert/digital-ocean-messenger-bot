@@ -167,7 +167,7 @@ const handlePostback = function(sender, postback) {
         const imageDistribution = (droplet.image) ? droplet.image.distribution : "null";
         const kernel = (droplet.kernet) ? droplet.kernel.name : "null";
 
-        const message = "name: " + droplet.name + "\n";
+        var message = "name: " + droplet.name + "\n";
         message += "memory: " + droplet.memory + "\n";
         message += "vcpus: " + droplet.vcpu + "\n";
 
