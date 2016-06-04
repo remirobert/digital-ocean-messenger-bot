@@ -222,6 +222,10 @@ app.post('/webhook/', function (req, res) {
       handleRequest(sender, text);
       continue;
     }
+    else if (event.message && event.sticker_id) {
+      const text = "";
+      handleRequest(sender, text);
+    }
     if (event.postback) {
       const postback = event.postback.payload;
       if (postback) {
