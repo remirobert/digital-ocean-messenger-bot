@@ -162,6 +162,17 @@ const handlePostback = function(sender, postback) {
       api.getDroplet(idDroplet, function(err, droplet) {
         console.log("droplet : ");
         console.log(droplet);
+
+        let message = "name: '" + droplet.name + "'\n\
+        memory: " + droplet.memory + "\n\
+        vcpus: " + droplet.vcpus + "\n\
+        disk: " + droplet.disk + "\n\
+        locked: " + droplet.locked + "\n\
+        status: '" + droplet.status + "'\n\
+        image: " + droplet.image.distribution + " " + droplet.image.name + " \n\
+        kernel: " + droplet.kernel.name + "\n\
+        region: " + droplet.region.name + "";
+        sendTextMessage(sender, message);
       });
     }
   });
