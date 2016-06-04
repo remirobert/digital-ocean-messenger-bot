@@ -27,9 +27,17 @@ const getUserInfoMessage = function(token, completion) {
     token: token
   });
   api.getUserInfo(function(err, user) {
-    console.log("get user ");
-    console.log(user);
-    completion("get user");
+    if (!user) {
+      completion(null);
+      return;
+    }
+    var message = "droplet_limit: " + user.droplet_limit + "\n";
+    message += "email: " + user.email + "\n";
+    message += "uuid: " + user.uuid + "\n";
+    message += "email_verified: " + user.email_verified + "\n";
+    message += "status: " + user.status + "\n";
+    message += "status_message: " + user.status_message;
+    completion(message);
   });
 }
 
@@ -88,7 +96,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-  console.log("get response route");
   res.send('Hello world, I am a chat bot');
 });
 
@@ -128,12 +135,10 @@ const handleRequest = function(sender, message) {
       }
       else if (params[0] === 'user') {
         getUserInfoMessage(client.token, function(userInfo) {
-          sendTextMessage(sender, userInfo);
+          if (userInfo) {
+            sendTextMessage(sender, userInfo);
+          }
         });
-        // api.getUserInfo(function(err, user) {
-        //   console.log("get user informations :");
-        //   console.log(user);
-        // });
       }
       else {
         if (!client.token) {
@@ -141,7 +146,9 @@ const handleRequest = function(sender, message) {
         }
         else {
           getCardsDroplets(client.token, function(cards) {
-            sendGenericMessage(sender, cards);
+            if (cards) {
+              sendGenericMessage(sender, cards);              
+            }
           });
         }
       }
@@ -150,16 +157,11 @@ const handleRequest = function(sender, message) {
 }
 
 const handlePostback = function(sender, postback) {
-  console.log("postback check : " + postback);
   Client.findOne({clientId: sender}, function(err, client) {
     if (err || !client) return;
     const params = postback.split('-');
-    console.log("params : ");
-    console.log(params);
     const command = params[0];
     const idDroplet = params[1];
-    console.log("command : " + command);
-    console.log("id : " + idDroplet);
     const api = new DigitalOceanApi({
       token: client.token
     });
