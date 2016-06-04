@@ -33,7 +33,7 @@ const getCardsDroplets = function(token, completion) {
       completion(null);
       return;
     }
-    let cardsDroplets = droplets.map(function(droplet) {
+    const cardsDroplets = droplets.map(function(droplet) {
       var buttonPower;
 
       if (droplet.status == 'active') {
@@ -163,14 +163,14 @@ const handlePostback = function(sender, postback) {
         console.log("droplet : ");
         console.log(droplet);
 
-        let message = "name: '" + droplet.name + "'\n\
+        const message = "name: '" + droplet.name + "'\n\
         memory: " + droplet.memory + "\n\
         vcpus: " + droplet.vcpus + "\n\
         disk: " + droplet.disk + "\n\
         locked: " + droplet.locked + "\n\
         status: '" + droplet.status + "'\n\
-        image: " + droplet.image.distribution + " " + droplet.image.name + " \n\
-        kernel: " + droplet.kernel.name + "\n\
+        image: " + (droplet.image) ? droplet.image.distribution : "null" + " " + (droplet.image) ? droplet.image.name : "null" + " \n\
+        kernel: " + (droplet.kernet) ? droplet.kernel.name : "null" + "\n\
         region: " + droplet.region.name + "";
         sendTextMessage(sender, message);
       });
@@ -179,12 +179,12 @@ const handlePostback = function(sender, postback) {
 }
 
 app.post('/webhook/', function (req, res) {
-  let messaging_events = req.body.entry[0].messaging
-  for (let i = 0; i < messaging_events.length; i++) {
-    let event = req.body.entry[0].messaging[i]
-    let sender = event.sender.id
+  const messaging_events = req.body.entry[0].messaging
+  for (var i = 0; i < messaging_events.length; i++) {
+    const event = req.body.entry[0].messaging[i]
+    const sender = event.sender.id
     if (event.message && event.message.text) {
-      let text = event.message.text
+      const text = event.message.text
       handleRequest(sender, text);
       continue;
     }
@@ -302,7 +302,7 @@ app.post('/webhook/', function (req, res) {
 //}
 // res.sendStatus(200)
 function sendTextMessage(sender, text) {
-  let messageData = { text:text }
+  const messageData = { text:text }
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:config.facebook_token},
@@ -321,7 +321,7 @@ function sendTextMessage(sender, text) {
 }
 
 function sendGenericMessage(sender, cards) {
-  let messageData = {
+  const messageData = {
     "attachment": {
       "type": "template",
       "payload": {
