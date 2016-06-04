@@ -94,27 +94,9 @@ app.get('/', function (req, res) {
 // })
 
 app.post('/webhook/', function (req, res) {
-
-  console.log("\n");
-  console.log(req.body);
-  console.log("\n");
-
   let messaging_events = req.body.entry[0].messaging;
   console.log("messages events");
   console.log(messaging_events);
-
-  for (let i = 0; i < messaging_events.length; i++) {
-    let event = req.body.entry[0].messaging[i];
-
-    console.log("check current event");
-    if (event.message && event.message.text) {
-      console.log("event is message");
-    }
-    else {
-      console.log("event is not message");
-    }
-  }
-  console.log("debug events over");
   var i = 0;
   const length = messaging_events.length;
   const fn = function() {
@@ -149,12 +131,7 @@ app.post('/webhook/', function (req, res) {
               let text = event.message.text;
               console.log("get text event");
               console.log(text);
-              if (text === 'Generic') {
-                sendTextMessage(sender, "Received API KEY : " + text + " 💦");
-              }
-              else {
-                console.log("not generic text");
-              }
+              sendTextMessage(sender, "message ");
             }
             else {
               console.log("event not a message");
