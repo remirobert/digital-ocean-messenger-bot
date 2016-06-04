@@ -132,6 +132,7 @@ const handleRequest = function(sender, message) {
 }
 
 const handlePostback = function(sender, postback) {
+  console.log("postback check : " + postback);
   Client.findOne({clientId: sender}, function(err, client) {
     if (err || !client) return;
     const params = postback.split('-');
