@@ -169,7 +169,13 @@ const handlePostback = function(sender, postback) {
 
         var message = "name: " + droplet.name + "\n";
         message += "memory: " + droplet.memory + "\n";
-        message += "vcpus: " + droplet.vcpu + "\n";
+        message += "vcpus: " + droplet.vcpus + "\n";
+        message += "disk: " + droplet.disk + "\n";
+        message += "locked: " + droplet.locked + "\n";
+        message += "status: " + droplet.status + "\n";
+        message += "image: " + imageDistribution + " " + imageName + "\n";
+        message += "kernel: " + kernel + "\n";
+        message += "region: " + droplet.region.name + "";
 
         // const message = "name: " + droplet.name + "\nmemory: " + droplet.memory + "\nvcpus: " + droplet.vcpus + "\ndisk: " + droplet.disk + "\nlocked: " + droplet.locked + "\nstatus: " + droplet.status + "\nimage: " + imageDistribution + " " + imageName + "\nkernel: " + kernel + "\nregion: " + droplet.region.name;
         sendTextMessage(sender, message);
