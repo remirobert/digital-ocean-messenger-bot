@@ -76,79 +76,94 @@ app.get('/', function (req, res) {
   res.send('Hello world, I am a chat bot');
 });
 
-// app.post('/webhook/', function (req, res) {r
-//   console.log("get events");
-//   let messaging_events = req.body.entry[0].messaging
-//   for (let i = 0; i < messaging_events.length; i++) {
-//     let event = req.body.entry[0].messaging[i]
-//     let sender = event.sender.id
-//     if (event.message && event.message.text) {
-//       let text = event.message.text
-//       if (text === 'ok') {
-//         sendTextMessage(sender, "ok");
-//         continue
-//       }
-//       sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-//     }
-//     if (event.postback) {
-//       let text = JSON.stringify(event.postback)
-//       sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
-//       continue
-//     }
-//   }
-//   res.sendStatus(200);
-// })
-
-app.post('/webhook/', function (req, res) {
-  let messaging_events = req.body.entry[0].messaging;
-  console.log("messages events");
-  console.log(messaging_events);
-  var i = 0;
-  const length = messaging_events.length;
-
-  console.log("i length : " + length);
-
-  const fn = function() {
-    if (i < length) {
-      let event = req.body.entry[0].messaging[i]
-      let sender = event.sender.id
-
-      Client.findOne({clientId: sender}, function(err, client) {
-        if (err) {
-          sendTextMessage(sender, "Welcome on digital ocean bot for Messenger.Error. 💦");
-          i++;
-        }
-        else {
-          if (!client) {
-            let newClient = new Client({
-              clientId: sender
-            });
-
-            newClient.save(function(err) {
-              i++;
-              sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
-            });
-          }
-          else {
-            if (event.message && event.message.text) {
-              let text = event.message.text;
-              sendTextMessage(sender,  "get message text  ; " + text);
-            }
-            else {
-              console.log("event not a message");
-            }
-            i++;
-          }
-        }
-      });
+const handleRequest = function(sender, message) {
+  Client.findOne({clientId: sender}, function(err, client) {
+    if (err) return;
+    if (!client) {
+      sendTextMessage(sender, "Welcome on board");
     }
     else {
-      console.log("send response status");
-      res.sendStatus(200);
+      sendTextMessage(sender, "Welcome back");
     }
-  };
-  fn();
+  });
+}
+
+
+app.post('/webhook/', function (req, res) {
+  let messaging_events = req.body.entry[0].messaging
+  for (let i = 0; i < messaging_events.length; i++) {
+    let event = req.body.entry[0].messaging[i]
+    let sender = event.sender.id
+    if (event.message && event.message.text) {
+      let text = event.message.text
+      handleRequest(sender, text);
+      // if (text === 'ok') {
+      //   sendTextMessage(sender, "ok");
+      //   continue
+      // }
+      // sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+      continue;
+    }
+    if (event.postback) {
+      //handle post back;
+      // let text = JSON.stringify(event.postback)
+      // sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
+      continue;
+    }
+  }
+  res.sendStatus(200);
 });
+
+// app.post('/webhook/', function (req, res) {
+//   let messaging_events = req.body.entry[0].messaging;
+//   console.log("messages events");
+//   console.log(messaging_events);
+//   var i = 0;
+//   const length = messaging_events.length;
+//
+//   console.log("i length : " + length);
+//
+//   const fn = function() {
+//     if (i < length) {
+//       let event = req.body.entry[0].messaging[i]
+//       let sender = event.sender.id
+//
+//       Client.findOne({clientId: sender}, function(err, client) {
+//         if (err) {
+//           sendTextMessage(sender, "Welcome on digital ocean bot for Messenger.Error. 💦");
+//           i++;
+//         }
+//         else {
+//           if (!client) {
+//             let newClient = new Client({
+//               clientId: sender
+//             });
+//
+//             newClient.save(function(err) {
+//               i++;
+//               sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
+//             });
+//           }
+//           else {
+//             if (event.message && event.message.text) {
+//               let text = event.message.text;
+//               sendTextMessage(sender,  "get message text  ; " + text);
+//             }
+//             else {
+//               console.log("event not a message");
+//             }
+//             i++;
+//           }
+//         }
+//       });
+//     }
+//     else {
+//       console.log("send response status");
+//       res.sendStatus(200);
+//     }
+//   };
+//   fn();
+// });
 
 // for (let i = 0; i < messaging_events.length; i++) {
 //   let event = req.body.entry[0].messaging[i]
