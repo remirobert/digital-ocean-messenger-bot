@@ -30,6 +30,7 @@ const getCardsDroplets = function(token, completion) {
   });
   api.listDroplets(function(error, droplets) {
     console.log("droplets : ");
+    console.log(droplets);
     if (!droplets) {
       completion(null);
       return;
@@ -178,6 +179,7 @@ app.post('/webhook/', function (req, res) {
     }
     if (event.postback) {
       let text = JSON.stringify(event.postback);
+      console.log("get postback : " + text);
       handlePostback(sender, text);
       continue;
     }
