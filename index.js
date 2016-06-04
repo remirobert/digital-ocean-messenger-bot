@@ -99,17 +99,13 @@ app.post('/webhook/', function (req, res) {
   console.log(messaging_events);
   var i = 0;
   const length = messaging_events.length;
-  const fn = function() {
 
+  const fn = function() {
     if (i < length) {
       let event = req.body.entry[0].messaging[i]
       let sender = event.sender.id
 
-      console.log("current event");
-      console.log(event);
       Client.findOne({clientId: sender}, function(err, client) {
-        console.log("find client : ");
-        console.log(client);
         if (err) {
           sendTextMessage(sender, "Welcome on digital ocean bot for Messenger.Error. 💦");
           i++;
@@ -122,8 +118,8 @@ app.post('/webhook/', function (req, res) {
 
             newClient.save(function(err) {
               i++;
+              sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
             });
-            sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
           }
           else {
             console.log("event debug");
@@ -131,7 +127,7 @@ app.post('/webhook/', function (req, res) {
               let text = event.message.text;
               console.log("get text event");
               console.log(text);
-              sendTextMessage(sender, "message ");
+              sendTextMessage(sender,  "get message text  ; " + text);
             }
             else {
               console.log("event not a message");
