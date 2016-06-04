@@ -137,6 +137,8 @@ const handlePostback = function(sender, postback) {
     if (!params || params.lenght != 2) return;
     const command = params[0];
     const idDroplet = params[1];
+    console.log("command : " + command);
+    console.log("id : " + idDroplet);
     const api = new DigitalOceanApi({
       token: client.token
     });
