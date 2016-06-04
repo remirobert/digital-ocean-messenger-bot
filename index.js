@@ -95,7 +95,11 @@ app.get('/', function (req, res) {
 
 const handleCommandRequest = function(sender, client, command, message) {
   if (command === "help") {
-    sendTextMessage(sender, "Help\nSend: <key + \"your key\" to update or set it\nSend any message to get your droplets.");
+    var messageHelp = "🆘\n";
+    messageHelp += "➖Set your API key ➡️ key + <your key>\n";
+    messageHelp += "➖Get account informations ➡️ user\n";
+    messageHelp += "➖Get list droplets ➡️ <tap whatever you want>";
+    sendTextMessage(sender, messageHelp);
     return ;
   }
   if (!client.token) {
