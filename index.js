@@ -136,7 +136,6 @@ const handlePostback = function(sender, postback) {
     const params = postback.split('-');
     console.log("params : ");
     console.log(params);
-    if (!params || params.lenght != 2) return;
     const command = params[0];
     const idDroplet = params[1];
     console.log("command : " + command);
