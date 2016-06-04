@@ -103,7 +103,9 @@ const handleCommandRequest = function(sender, client, command, message) {
     return ;
   }
   if (!client.token) {
-    sendTextMessage(sender, "You didn't set any API Key yet. Use the command 'key' + your key");
+    var messageAbsenceKey = "⚠️ You didn't set any API Key yet.\n";
+    messageAbsenceKey += "Use the command 'key' + your key";
+    sendTextMessage(sender, messageAbsenceKey);
     return;
   }
   if (command === 'user') {
@@ -141,13 +143,13 @@ const handleRequest = function(sender, message) {
           key = params[1];
         }
         if (!key || key.length < 10)  {
-          sendTextMessage(sender, "Oups, I think you didn't send me a good key");
+          sendTextMessage(sender, "⚠️ Oups, I think you didn't send me a good key");
         }
         else {
           client.token = key;
           client.save(function(err) {
             if (!err) {
-              sendTextMessage(sender, "Your key is successful registered");
+              sendTextMessage(sender, "Your key is successful registered 👍");
             }
           });
         }
@@ -170,17 +172,20 @@ const handlePostback = function(sender, postback) {
     });
     if (command === 'poweron') {
       api.powerOnDroplet(idDroplet, function(err) {
-
+        if (err) return;
+        sendTextMessage(sender, "Your droplet is switching on");
       });
     }
     else if (command === 'poweroff') {
       api.powerOffDroplet(idDroplet, function(err) {
-
+        if (err) return;
+        sendTextMessage(sender, "Your droplet is switching off");
       });
     }
     else if (command === 'reboot') {
       api.rebootDroplet(idDroplet, function(err) {
-
+        if (err) return;
+        sendTextMessage(sender, "Your droplet is rebooting");
       });
     }
     else if (command === 'informations') {
