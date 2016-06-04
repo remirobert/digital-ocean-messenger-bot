@@ -161,7 +161,7 @@ const handlePostback = function(sender, postback) {
         console.log(droplet);
       });
     }
-  }
+  });
 }
 
 app.post('/webhook/', function (req, res) {
