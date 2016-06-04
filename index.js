@@ -24,7 +24,10 @@ Client.findOne({}, function(err, user) {
   }
 });
 
-const getCardsDroplets = function(completion) {
+const getCardsDroplets = function(token, completion) {
+  const api = new DigitalOceanApi({
+    token: token
+  });
   api.listDroplets(function(error, droplets) {
     console.log("droplets : ");
     let cardsDroplets = droplets.map(function(droplet) {
@@ -107,11 +110,18 @@ const handleRequest = function(sender, message) {
           });
         }
       }
-      if (params[0] === "help") {
+      else if (params[0] === "help") {
         sendTextMessage(sender, "Help\nSend: <key + \"your key\" to update or set it\nSend any message to get your droplets.");
       }
       else {
-        sendTextMessage(sender, "Welcome back simple message : " + message);
+        if (!client.token) {
+          sendTextMessage(sender, "Welcome back simple message : " + message);
+        }
+        else {
+          getCardsDroplets(client.token, function(cards) {
+            sendGenericMessage(sender, cards);
+          });
+        }
       }
     }
   });
