@@ -41,14 +41,14 @@ const getCardsDroplets = function(token, completion) {
         buttonPower =           {
           "type": "postback",
           "title": "Power OFF 🌑",
-          "payload": "power-off-" + droplet.id,
+          "payload": "poweroff-" + droplet.id,
         }
       }
       else {
         buttonPower = {
           "type": "postback",
           "title": "Power ON 🌕",
-          "payload": "power-on-" + droplet.id,
+          "payload": "poweron-" + droplet.id,
         }
       }
       return {
@@ -64,7 +64,7 @@ const getCardsDroplets = function(token, completion) {
           {
             "type": "postback",
             "title": "informations",
-            "payload": "power-off-" + droplet.id,
+            "payload": "informations-" + droplet.id,
           },
         ]
       }
@@ -130,6 +130,39 @@ const handleRequest = function(sender, message) {
   });
 }
 
+const handlePostback = function(sender, postback) {
+  Client.findOne({clientId: sender}, function(err, client) {
+    if (err || !client) return;
+    const params = postback.split('-');
+    if (!params || params.lenght != 2) return;
+    const command = params[0];
+    const idDroplet = params[1];
+    const api = new DigitalOceanApi({
+      token: client.token
+    });
+    if (command === 'poweron') {
+      api.powerOnDroplet(idDroplet, function(err) {
+
+      });
+    }
+    else if (command === 'poweroff') {
+      api.powerOffDroplet(idDroplet, function(err) {
+
+      });
+    }
+    else if (command === 'reboot') {
+      api.rebootDroplet(idDroplet, function(err) {
+
+      });
+    }
+    else if (command === 'informations') {
+      api.getDroplet(idDroplet, function(err, droplet) {
+        console.log("droplet : ");
+        console.log(droplet);
+      });
+    }
+  }
+}
 
 app.post('/webhook/', function (req, res) {
   let messaging_events = req.body.entry[0].messaging
@@ -139,17 +172,11 @@ app.post('/webhook/', function (req, res) {
     if (event.message && event.message.text) {
       let text = event.message.text
       handleRequest(sender, text);
-      // if (text === 'ok') {
-      //   sendTextMessage(sender, "ok");
-      //   continue
-      // }
-      // sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
       continue;
     }
     if (event.postback) {
-      //handle post back;
-      // let text = JSON.stringify(event.postback)
-      // sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
+      let text = JSON.stringify(event.postback);
+      handlePostback(sender, text);
       continue;
     }
   }
