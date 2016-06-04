@@ -7,8 +7,8 @@ const app = express();
 const DigitalOceanApi = require('digital-ocean-api');
 const mongoose = require('mongoose');
 const config = require('config.json')('./auth.json');
-mongoose.connect('mongodb://localhost/digital-ocean-bot');
 
+mongoose.connect('mongodb://localhost/digital-ocean-bot');
 app.use('/static', express.static('ressources'));
 
 const Client = mongoose.model('Client', {
