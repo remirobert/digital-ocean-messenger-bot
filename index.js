@@ -16,12 +16,6 @@ const Client = mongoose.model('Client', {
   token: { type: String, required: false }
 });
 
-Client.findOne({}, function(err, user) {
-  if (!err && user) {
-    user.remove();
-  }
-});
-
 const getUserInfoMessage = function(token, completion) {
   const api = new DigitalOceanApi({
     token: token
@@ -223,7 +217,7 @@ app.post('/webhook/', function (req, res) {
       continue;
     }
     else if (event.message && event.sticker_id) {
-      const text = "";
+      const text = "droplets";
       handleRequest(sender, text);
     }
     if (event.postback) {
@@ -237,108 +231,6 @@ app.post('/webhook/', function (req, res) {
   res.sendStatus(200);
 });
 
-// app.post('/webhook/', function (req, res) {
-//   let messaging_events = req.body.entry[0].messaging;
-//   console.log("messages events");
-//   console.log(messaging_events);
-//   var i = 0;
-//   const length = messaging_events.length;
-//
-//   console.log("i length : " + length);
-//
-//   const fn = function() {
-//     if (i < length) {
-//       let event = req.body.entry[0].messaging[i]
-//       let sender = event.sender.id
-//
-//       Client.findOne({clientId: sender}, function(err, client) {
-//         if (err) {
-//           sendTextMessage(sender, "Welcome on digital ocean bot for Messenger.Error. 💦");
-//           i++;
-//         }
-//         else {
-//           if (!client) {
-//             let newClient = new Client({
-//               clientId: sender
-//             });
-//
-//             newClient.save(function(err) {
-//               i++;
-//               sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
-//             });
-//           }
-//           else {
-//             if (event.message && event.message.text) {
-//               let text = event.message.text;
-//               sendTextMessage(sender,  "get message text  ; " + text);
-//             }
-//             else {
-//               console.log("event not a message");
-//             }
-//             i++;
-//           }
-//         }
-//       });
-//     }
-//     else {
-//       console.log("send response status");
-//       res.sendStatus(200);
-//     }
-//   };
-//   fn();
-// });
-
-// for (let i = 0; i < messaging_events.length; i++) {
-//   let event = req.body.entry[0].messaging[i]
-//   console.log("received new event");
-//   console.log(event);
-//
-//   let sender = event.sender.id
-//   Client.findOne({clientId: sender}, function(err, client) {
-//     console.log("find client : ");
-//     console.log(client);
-//     if (err) {
-//       sendTextMessage(sender, "Welcome on digital ocean bot for Messenger.Error. 💦");
-//     }
-//     else {
-//       if (!client) {
-//         sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
-//       }
-//       else {
-//         sendTextMessage(sender, "Welcome on digital ocean bot for Messenger. You didn't registered any API key. Please send me your key. 💦");
-//       }
-//     }
-//     if (i == messaging_events.length - 1) {
-//       res.sendStatus(200);
-//     }
-//   });
-
-// if (event.message && event.message.text) {
-//   let text = event.message.text
-//   if (text === 'Generic') {
-//     sendGenericMessage(sender)
-//     continue
-//   }
-//
-//   getCardsDroplets(function(cards) {
-//     sendGenericMessage(sender, cards);
-//   });
-//
-//   // sendGenericMessage(sender);
-//   //sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
-// }
-// if (event.postback) {
-//   console.log("event post back : ");
-//   console.log(event.postback);
-//   console.log("EVENT DEBUG");
-//   console.log(event);
-//   let text = JSON.stringify(event.postback)
-//
-//   sendTextMessage(sender, "Postback received: "+text.substring(0, 200), config.token);
-//   continue
-// }
-//}
-// res.sendStatus(200)
 function sendTextMessage(sender, text) {
   const messageData = { text:text }
   request({
