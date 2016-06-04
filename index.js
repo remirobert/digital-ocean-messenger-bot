@@ -83,7 +83,16 @@ const handleRequest = function(sender, message) {
       sendTextMessage(sender, "Welcome on board");
     }
     else {
-      sendTextMessage(sender, "Welcome back");
+      const params = message.split(' ');
+      if (params.length > 1) {
+        if (params[0] === 'key') {
+          sendTextMessage(sender, "received key");
+        }
+        sendTextMessage(sender, "Welcome back param = " + params[0]);
+      }
+      else {
+        sendTextMessage(sender, "Welcome back simple message : " + message);
+      }
     }
   });
 }
