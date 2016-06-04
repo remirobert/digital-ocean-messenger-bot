@@ -100,7 +100,7 @@ app.get('/', function (req, res) {
 });
 
 const handleCommandRequest = function(sender, client, command, message) {
-  if (params[0] === "help") {
+  if (command === "help") {
     sendTextMessage(sender, "Help\nSend: <key + \"your key\" to update or set it\nSend any message to get your droplets.");
     return ;
   }
@@ -108,7 +108,7 @@ const handleCommandRequest = function(sender, client, command, message) {
     sendTextMessage(sender, "You didn't set any API Key yet. Use the command 'key' + your key");
     return;
   }
-  if (params[0] === 'user') {
+  if (command === 'user') {
     getUserInfoMessage(client.token, function(userInfo) {
       if (userInfo) {
         sendTextMessage(sender, userInfo);
@@ -116,16 +116,11 @@ const handleCommandRequest = function(sender, client, command, message) {
     });
   }
   else {
-    if (!client.token) {
-      sendTextMessage(sender, "Welcome back simple message : " + message);
-    }
-    else {
-      getCardsDroplets(client.token, function(cards) {
-        if (cards) {
-          sendGenericMessage(sender, cards);
-        }
-      });
-    }
+    getCardsDroplets(client.token, function(cards) {
+      if (cards) {
+        sendGenericMessage(sender, cards);
+      }
+    });
   }
 }
 
@@ -160,7 +155,7 @@ const handleRequest = function(sender, message) {
         }
       }
       else {
-        handleCommandRequest(sender, client, command[0], message);
+        handleCommandRequest(sender, client, params[0], message);
       }
     }
   });
@@ -220,6 +215,8 @@ app.post('/webhook/', function (req, res) {
   for (var i = 0; i < messaging_events.length; i++) {
     const event = req.body.entry[0].messaging[i]
     const sender = event.sender.id
+    console.log("get event ;");
+    console.log(event);
     if (event.message && event.message.text) {
       const text = event.message.text
       handleRequest(sender, text);
