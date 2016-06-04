@@ -1,5 +1,3 @@
-'use strict'
-
 const fs = require('fs');
 const http = require('http');
 const express = require('express');
@@ -181,9 +179,10 @@ app.post('/webhook/', function (req, res) {
       continue;
     }
     if (event.postback) {
-      let text = JSON.stringify(event.postback);
-      console.log("get postback : " + text.payload);
-      handlePostback(sender, text.payload);
+      const postback = event.postback.payload;
+      if (postback) {
+        handlePostback(sender, event.postback.payload);
+      }
       continue;
     }
   }
