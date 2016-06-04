@@ -115,6 +115,12 @@ const handleRequest = function(sender, message) {
       else if (params[0] === "help") {
         sendTextMessage(sender, "Help\nSend: <key + \"your key\" to update or set it\nSend any message to get your droplets.");
       }
+      else if (params[0] === 'user') {
+        api.getUserInfo(function(err, user) {
+          console.log("get user informations :");
+          console.log(user);
+        });
+      }
       else {
         if (!client.token) {
           sendTextMessage(sender, "Welcome back simple message : " + message);
@@ -178,12 +184,6 @@ const handlePostback = function(sender, postback) {
         message += "kernel: " + kernel + "\n";
         message += "region: " + region;
         sendTextMessage(sender, message);
-      });
-    }
-    else if (command === 'user') {
-      api.getUserInfo(function(err, user) {
-        console.log("get user informations :");
-        console.log(user);
       });
     }
   });
