@@ -211,14 +211,10 @@ app.post('/webhook/', function (req, res) {
     const sender = event.sender.id
     console.log("get event ;");
     console.log(event);
-    if (event.message && event.message.text) {
-      const text = event.message.text
+    if (event.message) {
+      const text = (event.message.text) ? event.message.text : "droplets";
       handleRequest(sender, text);
       continue;
-    }
-    else if (event.message && event.sticker_id) {
-      const text = "droplets";
-      handleRequest(sender, text);
     }
     if (event.postback) {
       const postback = event.postback.payload;
