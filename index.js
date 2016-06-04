@@ -99,6 +99,36 @@ app.get('/', function (req, res) {
   res.send('Hello world, I am a chat bot');
 });
 
+const handleCommandRequest = function(sender, client, command, message) {
+  if (params[0] === "help") {
+    sendTextMessage(sender, "Help\nSend: <key + \"your key\" to update or set it\nSend any message to get your droplets.");
+    return ;
+  }
+  if (!client.token) {
+    sendTextMessage(sender, "You didn't set any API Key yet. Use the command 'key' + your key");
+    return;
+  }
+  if (params[0] === 'user') {
+    getUserInfoMessage(client.token, function(userInfo) {
+      if (userInfo) {
+        sendTextMessage(sender, userInfo);
+      }
+    });
+  }
+  else {
+    if (!client.token) {
+      sendTextMessage(sender, "Welcome back simple message : " + message);
+    }
+    else {
+      getCardsDroplets(client.token, function(cards) {
+        if (cards) {
+          sendGenericMessage(sender, cards);
+        }
+      });
+    }
+  }
+}
+
 const handleRequest = function(sender, message) {
   Client.findOne({clientId: sender}, function(err, client) {
     if (err) return;
@@ -117,7 +147,6 @@ const handleRequest = function(sender, message) {
         if (params.length > 1) {
           key = params[1];
         }
-
         if (!key || key.length < 10)  {
           sendTextMessage(sender, "Oups, I think you didn't send me a good key");
         }
@@ -130,27 +159,8 @@ const handleRequest = function(sender, message) {
           });
         }
       }
-      else if (params[0] === "help") {
-        sendTextMessage(sender, "Help\nSend: <key + \"your key\" to update or set it\nSend any message to get your droplets.");
-      }
-      else if (params[0] === 'user') {
-        getUserInfoMessage(client.token, function(userInfo) {
-          if (userInfo) {
-            sendTextMessage(sender, userInfo);
-          }
-        });
-      }
       else {
-        if (!client.token) {
-          sendTextMessage(sender, "Welcome back simple message : " + message);
-        }
-        else {
-          getCardsDroplets(client.token, function(cards) {
-            if (cards) {
-              sendGenericMessage(sender, cards);              
-            }
-          });
-        }
+        handleCommandRequest(sender, client, command[0], message);
       }
     }
   });
