@@ -128,7 +128,7 @@ const handleRequest = function(sender, message) {
       }
       else if (params[0] === 'user') {
         getUserInfo(function(userInfo) {
-          sendTextMessage(sender, userInfo);
+          sendTextMessage(client.token, sender, userInfo);
         });
         // api.getUserInfo(function(err, user) {
         //   console.log("get user informations :");
