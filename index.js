@@ -30,6 +30,10 @@ const getCardsDroplets = function(token, completion) {
   });
   api.listDroplets(function(error, droplets) {
     console.log("droplets : ");
+    if (!droplets) {
+      completion(null);
+      return;
+    }
     let cardsDroplets = droplets.map(function(droplet) {
       var buttonPower;
 
@@ -47,7 +51,6 @@ const getCardsDroplets = function(token, completion) {
           "payload": "power-on-" + droplet.id,
         }
       }
-
       return {
         "title": droplet.name,
         "subtitle": droplet.image.distribution + " " + droplet.image.name + "\n" + droplet.status,
