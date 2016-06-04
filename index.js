@@ -165,7 +165,8 @@ const handlePostback = function(sender, postback) {
 
         const imageName = (droplet.image) ? droplet.image.name : "null";
         const imageDistribution = (droplet.image) ? droplet.image.distribution : "null";
-        const kernel = (droplet.kernet) ? droplet.kernel.name : "null";
+        const kernel = (droplet.kernel) ? droplet.kernel.name : "null";
+        const region = (droplet.region) ? droplet.region.name : "null";
 
         var message = "name: " + droplet.name + "\n";
         message += "memory: " + droplet.memory + "\n";
@@ -175,10 +176,14 @@ const handlePostback = function(sender, postback) {
         message += "status: " + droplet.status + "\n";
         message += "image: " + imageDistribution + " " + imageName + "\n";
         message += "kernel: " + kernel + "\n";
-        message += "region: " + droplet.region.name + "";
-
-        // const message = "name: " + droplet.name + "\nmemory: " + droplet.memory + "\nvcpus: " + droplet.vcpus + "\ndisk: " + droplet.disk + "\nlocked: " + droplet.locked + "\nstatus: " + droplet.status + "\nimage: " + imageDistribution + " " + imageName + "\nkernel: " + kernel + "\nregion: " + droplet.region.name;
+        message += "region: " + region;
         sendTextMessage(sender, message);
+      });
+    }
+    else if (command === 'user') {
+      api.getUserInfo(function(err, user) {
+        console.log("get user informations :");
+        console.log(user);
       });
     }
   });
