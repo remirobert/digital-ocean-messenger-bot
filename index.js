@@ -22,6 +22,17 @@ Client.findOne({}, function(err, user) {
   }
 });
 
+const getUserInfo = function(token, completion) {
+  const api = new DigitalOceanApi({
+    token: token
+  });
+  api.getUserInfo(function(err, user) {
+    console.log("get user ");
+    console.log(user);
+    completion("get user");
+  });
+}
+
 const getCardsDroplets = function(token, completion) {
   const api = new DigitalOceanApi({
     token: token
@@ -116,10 +127,13 @@ const handleRequest = function(sender, message) {
         sendTextMessage(sender, "Help\nSend: <key + \"your key\" to update or set it\nSend any message to get your droplets.");
       }
       else if (params[0] === 'user') {
-        api.getUserInfo(function(err, user) {
-          console.log("get user informations :");
-          console.log(user);
+        getUserInfo(function(userInfo) {
+          sendTextMessage(sender, userInfo);
         });
+        // api.getUserInfo(function(err, user) {
+        //   console.log("get user informations :");
+        //   console.log(user);
+        // });
       }
       else {
         if (!client.token) {
