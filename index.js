@@ -22,7 +22,7 @@ Client.findOne({}, function(err, user) {
   }
 });
 
-const getUserInfo = function(token, completion) {
+const getUserInfoMessage = function(token, completion) {
   const api = new DigitalOceanApi({
     token: token
   });
@@ -127,8 +127,8 @@ const handleRequest = function(sender, message) {
         sendTextMessage(sender, "Help\nSend: <key + \"your key\" to update or set it\nSend any message to get your droplets.");
       }
       else if (params[0] === 'user') {
-        getUserInfo(function(userInfo) {
-          sendTextMessage(client.token, sender, userInfo);
+        getUserInfoMessage(client.token, function(userInfo) {
+          sendTextMessage(sender, userInfo);
         });
         // api.getUserInfo(function(err, user) {
         //   console.log("get user informations :");
