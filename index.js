@@ -180,7 +180,7 @@ app.post('/webhook/', function (req, res) {
     if (event.postback) {
       let text = JSON.stringify(event.postback);
       console.log("get postback : " + text);
-      handlePostback(sender, text);
+      handlePostback(sender, text.payload);
       continue;
     }
   }
