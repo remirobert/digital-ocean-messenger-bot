@@ -91,7 +91,19 @@ const handleRequest = function(sender, message) {
       const params = message.split(' ');
       if (params.length > 1) {
         if (params[0] === 'key') {
-          sendTextMessage(sender, "received key");
+          const key = params[1];
+
+          if (!key || key.length < 10)  {
+            sendTextMessage(sender, "Oups, I think you didn't send me a good key");
+          }
+          else {
+            client.token = key;
+            client.save(function(err) {
+              if (!err) {
+                sendTextMessage(sender, "Your key is successful registered");
+              }
+            });
+          }
         }
         sendTextMessage(sender, "Welcome back param = " + params[0]);
       }
