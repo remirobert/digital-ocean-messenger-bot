@@ -106,6 +106,8 @@ app.post('/webhook/', function (req, res) {
   var i = 0;
   const length = messaging_events.length;
 
+  console.log("i length : " + length);
+
   const fn = function() {
     if (i < length) {
       let event = req.body.entry[0].messaging[i]
