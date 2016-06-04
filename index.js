@@ -18,6 +18,12 @@ const Client = mongoose.model('Client', {
   token: { type: String, required: false }
 });
 
+Client.findOne({}, function(err, user) {
+  if (!err && user) {
+    user.remove();
+  }
+});
+
 const getCardsDroplets = function(completion) {
   api.listDroplets(function(error, droplets) {
     console.log("droplets : ");
@@ -122,11 +128,8 @@ app.post('/webhook/', function (req, res) {
             });
           }
           else {
-            console.log("event debug");
             if (event.message && event.message.text) {
               let text = event.message.text;
-              console.log("get text event");
-              console.log(text);
               sendTextMessage(sender,  "get message text  ; " + text);
             }
             else {
