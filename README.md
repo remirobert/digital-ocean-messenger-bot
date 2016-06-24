@@ -2,7 +2,7 @@
 
 # Digital Ocean bot
 
-# Installation
+### Installation
 
 Install first the needed packages:
 ```
@@ -18,7 +18,7 @@ Then create a **auth.json** file for configutation credential.
 }
 ```
 
-# Command
+### Commands
 
               |  CameraEngine
 --------------------------|------------------------------------------------------------
