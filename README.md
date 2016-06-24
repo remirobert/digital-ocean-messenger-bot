@@ -30,3 +30,8 @@ Then create a **auth.json** file for configutation credential.
 :camera: | Photo capture | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
 :computer: | Get the list of your droplets | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
 :stars: | Fancy cards list for your droplets list | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
+
+
+ommand             |  Preview
+:-------------------------:|:-------------------------:
+Help command, for catch all of them  |  ![](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
