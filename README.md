@@ -24,9 +24,9 @@ Then create a **auth.json** file for configutation credential.
 
               |  CameraEngine | Preview            
 --------------------------|------------------------------------------------------------
-:sos: | Help command, for catch all of them | ![image](https://cloud.githubusercontent.com/assets/3276768/16327874/b1a97912-3a06-11e6-8ee1-0258cceb011c.png)
-:key: | To set your API key from Digital Ocean | ![image](https://cloud.githubusercontent.com/assets/3276768/16327874/b1a97912-3a06-11e6-8ee1-0258cceb011c.png)
-:bowtie: | User's profile informations | ![image](https://cloud.githubusercontent.com/assets/3276768/16327874/b1a97912-3a06-11e6-8ee1-0258cceb011c.png)
-:camera: | Photo capture | ![image](https://cloud.githubusercontent.com/assets/3276768/16327874/b1a97912-3a06-11e6-8ee1-0258cceb011c.png)
-:computer: | Get the list of your droplets | ![image](https://cloud.githubusercontent.com/assets/3276768/16327874/b1a97912-3a06-11e6-8ee1-0258cceb011c.png)
-:stars: | Fancy cards list for your droplets list | ![image](https://cloud.githubusercontent.com/assets/3276768/16327874/b1a97912-3a06-11e6-8ee1-0258cceb011c.png)
+:sos: | Help command, for catch all of them | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
+:key: | To set your API key from Digital Ocean | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
+:bowtie: | User's profile informations | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
+:camera: | Photo capture | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
+:computer: | Get the list of your droplets | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
+:stars: | Fancy cards list for your droplets list | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
