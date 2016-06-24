@@ -17,3 +17,15 @@ Then create a **auth.json** file for configutation credential.
   "facebook_token": "EAAN8kzgEXZA4BAAwv"
 }
 ```
+
+# Command
+
+              |  CameraEngine
+--------------------------|------------------------------------------------------------
+:sos: | Help command, for catch all of them
+:key: | To set your API key from Digital Ocean
+:bowtie: | User's profile informations
+:camera: | Photo capture
+:computer: | Get the list of your droplets 
+:stars: | Fancy cards list for your droplets list 
+
