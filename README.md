@@ -2,6 +2,9 @@
 
 # Digital Ocean bot
 
+This is a **Facebook Messenger** 🤖📲 bot to manage your **digital ocean** droplets easily, with simple commands.
+Directly in the chat, you can get your current droplets, the status, and reboot start or stop each of them !
+
 ### Installation
 
 Install first the needed packages:
@@ -17,8 +20,6 @@ Then create a **auth.json** file for configutation credential.
   "facebook_token": "EAAN8kzgEXZA4BAAwv"
 }
 ```
-
-![image](https://cloud.githubusercontent.com/assets/3276768/16327874/b1a97912-3a06-11e6-8ee1-0258cceb011c.png)
 
 ### Commands
 
