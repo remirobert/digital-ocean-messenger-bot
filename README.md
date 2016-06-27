@@ -22,20 +22,11 @@ Then create a **auth.json** file for configutation credential.
 
 ### Commands
 
-              |  CameraEngine | Preview            
---------------------------|------------------------------------------------------------
-:sos: | Help command, for catch all of them | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
-:key: | To set your API key from Digital Ocean | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
-:bowtie: | User's profile informations | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
-:camera: | Photo capture | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
-:computer: | Get the list of your droplets | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
-:stars: | Fancy cards list for your droplets list | ![image](https://cloud.githubusercontent.com/assets/3276768/16327984/c762bd30-3a07-11e6-9a63-12f71db9d645.png)
-
-
-ommand             |  Preview
+command             |  Preview
 :-------------------------:|:-------------------------:
 :sos: Help command, for catch all of them  | ![](https://cloud.githubusercontent.com/assets/3276768/16328312/863d8dea-3a0b-11e6-8eb5-25ba43e6e37f.png)
 :key: To set your API key from Digital Ocean | ![](https://cloud.githubusercontent.com/assets/3276768/16328342/c4eb464a-3a0b-11e6-9657-a42fa4d11be3.png)
 :computer: Get the list of your droplets, with a very :stars: fancy cards list |  ![](https://cloud.githubusercontent.com/assets/3276768/16328239/d6e5daa0-3a0a-11e6-985c-44ea4a64f7bf.png)
+:bowtie: User's profile informations |
 
 
