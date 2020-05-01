@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "author": "= <remirobert33530@gmail.com> (remirobert.github.io)",
   "license": "ISC",
@@ -14,6 +16,8 @@
     "digital-ocean-api": "^0.2.0",
     "express": "^4.13.4",
     "mongoose": "^4.4.19",
-    "request": "^2.72.0"
-  }
+    "request": "^2.72.0",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
